@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pramod Kumar | SAP Consultant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #0b1a2e;
+      --navy2: #112240;
+      --teal: #00d4c8;
+      --teal2: #00b5a8;
+      --white: #e8f0f7;
+      --muted: #7a90a8;
+      --card: #142035;
+      --border: rgba(0,212,200,0.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      padding: 18px 60px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(11,26,46,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 1.3rem;
+      color: var(--teal); letter-spacing: -0.5px;
+    }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--muted);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--teal); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 120px 60px 80px;
+      position: relative;
+    }
+    .hero-glow {
+      position: absolute; top: 10%; right: 5%;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,212,200,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-content { max-width: 750px; position: relative; z-index: 1; }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(0,212,200,0.1);
+      border: 1px solid var(--border);
+      color: var(--teal); font-size: 0.78rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 6px 16px; border-radius: 100px;
+      margin-bottom: 28px;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-name {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 800; line-height: 1.0;
+      letter-spacing: -2px;
+      animation: fadeUp 0.7s ease 0.1s both;
+    }
+    .hero-name span { color: var(--teal); }
+    .hero-role {
+      font-size: 1.15rem; font-weight: 300;
+      color: var(--muted); margin: 20px 0 32px;
+      line-height: 1.6;
+      animation: fadeUp 0.7s ease 0.2s both;
+    }
+    .hero-role strong { color: var(--white); font-weight: 500; }
+    .hero-cta {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      animation: fadeUp 0.7s ease 0.3s both;
+    }
+    .btn-primary {
+      background: var(--teal); color: var(--navy);
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: 0.85rem; letter-spacing: 0.05em;
+      padding: 14px 32px; border-radius: 6px;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: all 0.2s; display: inline-block;
+    }
+    .btn-primary:hover { background: var(--teal2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,212,200,0.25); }
+    .btn-outline {
+      background: transparent; color: var(--teal);
+      font-family: 'Syne', sans-serif; font-weight: 600;
+      font-size: 0.85rem; letter-spacing: 0.05em;
+      padding: 14px 32px; border-radius: 6px;
+      border: 1px solid var(--teal);
+      text-decoration: none; cursor: pointer;
+      transition: all 0.2s; display: inline-block;
+    }
+    .btn-outline:hover { background: rgba(0,212,200,0.08); transform: translateY(-2px); }
+
+    .hero-stats {
+      display: flex; gap: 48px; margin-top: 60px;
+      padding-top: 40px; border-top: 1px solid var(--border);
+      animation: fadeUp 0.7s ease 0.4s both;
+    }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.2rem; font-weight: 800; color: var(--teal);
+    }
+    .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 2px; letter-spacing: 0.05em; }
+
+    /* ── SECTIONS ── */
+    section { padding: 100px 60px; position: relative; z-index: 1; }
+    .section-label {
+      font-size: 0.75rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--teal);
+      margin-bottom: 12px; font-weight: 500;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800; letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      color: var(--muted); font-size: 1rem;
+      font-weight: 300; max-width: 500px; line-height: 1.6;
+    }
+    .section-head { margin-bottom: 60px; }
+
+    /* ── ABOUT ── */
+    #about { background: var(--navy2); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .about-text p {
+      color: var(--muted); line-height: 1.8; font-size: 0.97rem;
+      margin-bottom: 18px; font-weight: 300;
+    }
+    .about-text p strong { color: var(--white); font-weight: 500; }
+    .about-info { display: flex; flex-direction: column; gap: 16px; margin-top: 32px; }
+    .info-row { display: flex; gap: 16px; align-items: center; }
+    .info-icon { color: var(--teal); font-size: 1rem; width: 20px; }
+    .info-text { font-size: 0.9rem; color: var(--muted); }
+    .info-text strong { color: var(--white); font-weight: 500; }
+
+    .about-cards { display: flex; flex-direction: column; gap: 16px; }
+    .about-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 24px 28px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .about-card:hover { border-color: var(--teal); transform: translateX(6px); }
+    .about-card-title {
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: 0.95rem; color: var(--white); margin-bottom: 6px;
+    }
+    .about-card-text { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── SKILLS ── */
+    #skills {}
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;
+    }
+    .skill-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 28px;
+      transition: all 0.25s;
+    }
+    .skill-card:hover { border-color: var(--teal); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
+    .skill-icon { font-size: 1.8rem; margin-bottom: 14px; }
+    .skill-category {
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: 1rem; color: var(--white); margin-bottom: 12px;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag {
+      background: rgba(0,212,200,0.08); border: 1px solid rgba(0,212,200,0.2);
+      color: var(--teal); font-size: 0.75rem; padding: 4px 12px;
+      border-radius: 100px; font-weight: 500; letter-spacing: 0.03em;
+    }
+
+    /* ── EXPERIENCE ── */
+    #experience { background: var(--navy2); }
+    .exp-timeline { position: relative; padding-left: 32px; }
+    .exp-timeline::before {
+      content: ''; position: absolute; left: 0; top: 8px; bottom: 0;
+      width: 2px; background: linear-gradient(to bottom, var(--teal), transparent);
+    }
+    .exp-item { position: relative; margin-bottom: 48px; }
+    .exp-dot {
+      position: absolute; left: -38px; top: 6px;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--teal); border: 2px solid var(--navy2);
+      box-shadow: 0 0 12px rgba(0,212,200,0.5);
+    }
+    .exp-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 32px;
+      transition: border-color 0.2s;
+    }
+    .exp-card:hover { border-color: var(--teal); }
+    .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; flex-wrap: wrap; gap: 8px; }
+    .exp-company {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: 1.2rem; color: var(--teal);
+    }
+    .exp-date {
+      font-size: 0.8rem; color: var(--muted);
+      background: rgba(0,212,200,0.08); border: 1px solid var(--border);
+      padding: 4px 14px; border-radius: 100px;
+    }
+    .exp-role {
+      font-size: 1rem; font-weight: 500; color: var(--white);
+      margin-bottom: 4px;
+    }
+    .exp-location { font-size: 0.85rem; color: var(--muted); margin-bottom: 20px; }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .exp-bullets li {
+      font-size: 0.88rem; color: var(--muted); line-height: 1.6;
+      padding-left: 18px; position: relative; font-weight: 300;
+    }
+    .exp-bullets li::before {
+      content: '▹'; position: absolute; left: 0;
+      color: var(--teal); font-size: 0.8rem;
+    }
+    .exp-bullets li strong { color: var(--white); font-weight: 500; }
+
+    /* ── CERTIFICATIONS ── */
+    .certs-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;
+    }
+    .cert-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 28px 32px;
+      display: flex; gap: 20px; align-items: flex-start;
+      transition: all 0.25s;
+    }
+    .cert-card:hover { border-color: var(--teal); transform: translateY(-4px); }
+    .cert-badge {
+      width: 48px; height: 48px; border-radius: 10px;
+      background: rgba(0,212,200,0.1); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; flex-shrink: 0;
+    }
+    .cert-name {
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: 0.95rem; color: var(--white); margin-bottom: 6px; line-height: 1.4;
+    }
+    .cert-issuer { font-size: 0.82rem; color: var(--teal); font-weight: 500; }
+
+    /* ── EDUCATION ── */
+    #education { background: var(--navy2); }
+    .edu-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;
+    }
+    .edu-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 32px;
+      transition: all 0.25s;
+    }
+    .edu-card:hover { border-color: var(--teal); transform: translateY(-4px); }
+    .edu-degree {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: 1.1rem; color: var(--white); margin-bottom: 8px;
+    }
+    .edu-school { font-size: 0.9rem; color: var(--teal); font-weight: 500; margin-bottom: 6px; }
+    .edu-date { font-size: 0.82rem; color: var(--muted); }
+
+    /* ── CONTACT ── */
+    #contact {
+      text-align: center;
+      background: linear-gradient(to bottom, var(--navy), var(--navy2));
+    }
+    .contact-inner { max-width: 600px; margin: 0 auto; }
+    .contact-email {
+      display: inline-block; margin-top: 32px;
+      font-family: 'Syne', sans-serif; font-size: 1.1rem;
+      color: var(--teal); font-weight: 700;
+      text-decoration: none; border-bottom: 1px solid var(--teal);
+      padding-bottom: 2px; transition: opacity 0.2s;
+    }
+    .contact-email:hover { opacity: 0.7; }
+    .contact-links { display: flex; justify-content: center; gap: 24px; margin-top: 40px; }
+    .contact-link {
+      background: var(--card); border: 1px solid var(--border);
+      color: var(--muted); font-size: 0.85rem; font-weight: 500;
+      padding: 12px 28px; border-radius: 8px;
+      text-decoration: none; transition: all 0.2s;
+      letter-spacing: 0.05em;
+    }
+    .contact-link:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 28px 60px;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem; color: var(--muted);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      #hero, section { padding: 80px 24px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-stats { gap: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">PK.</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Available for Opportunities</div>
+    <h1 class="hero-name">Pramod<br/><span>Kumar</span><br/>Thiruveedhi</h1>
+    <p class="hero-role">
+      <strong>SAP Functional Consultant</strong> &amp; Application Developer<br/>
+      Specializing in Supply Chain Management, Logistics Execution &amp; S/4HANA
+    </p>
+    <div class="hero-cta">
+      <a href="#experience" class="btn-primary">View Experience</a>
+      <a href="#contact" class="btn-outline">Get In Touch</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">1.8+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div>
+        <div class="stat-num">2</div>
+        <div class="stat-label">Certifications</div>
+      </div>
+      <div>
+        <div class="stat-num">4+</div>
+        <div class="stat-label">SAP Modules</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <div class="section-label">About Me</div>
+      <h2 class="section-title">Building Reliable SAP Ecosystems</h2>
+      <p>I'm a <strong>performance-driven SAP Functional Consultant</strong> based in Andhra Pradesh, India, with hands-on experience across SAP Supply Chain Management, Warehouse Management, Materials Management, and Logistics Execution.</p>
+      <p>At Accenture India, I work on optimizing cross-functional system logic, designing inbound/outbound execution plans, and monitoring complex <strong>IDoc data integration pipelines</strong>. I thrive on resolving business-critical bottlenecks and turning technical complexity into reliable operations.</p>
+      <div class="about-info">
+        <div class="info-row">
+          <span class="info-icon">📍</span>
+          <span class="info-text"><strong>Location:</strong> Andhra Pradesh, India</span>
+        </div>
+        <div class="info-row">
+          <span class="info-icon">🏢</span>
+          <span class="info-text"><strong>Current:</strong> Accenture India — Associate Software Engineer</span>
+        </div>
+        <div class="info-row">
+          <span class="info-icon">📧</span>
+          <span class="info-text"><strong>Email:</strong> pramodsai9494@gmail.com</span>
+        </div>
+        <div class="info-row">
+          <span class="info-icon">📞</span>
+          <span class="info-text"><strong>Phone:</strong> +91 6304208873</span>
+        </div>
+      </div>
+    </div>
+    <div class="about-cards reveal">
+      <div class="about-card">
+        <div class="about-card-title">⚙️ System Integration</div>
+        <div class="about-card-text">Expert in IDoc integration, EDI pipelines, and cross-system data flow management ensuring zero data loss in enterprise environments.</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-title">📦 Supply Chain Expertise</div>
+        <div class="about-card-text">Deep knowledge of end-to-end logistics flows, warehouse management, materials management, and order lifecycle operations.</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-title">🛠️ Incident Management</div>
+        <div class="about-card-text">Skilled in P1–P4 ticket governance, SLA/OLA adherence, root cause analysis, and systematic defect remediation under tight deadlines.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-head reveal">
+    <div class="section-label">Expertise</div>
+    <h2 class="section-title">Technical Skills</h2>
+    <p class="section-sub">Core SAP modules and tools I work with daily in enterprise environments.</p>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-icon">🧩</div>
+      <div class="skill-category">SAP Modules</div>
+      <div class="skill-tags">
+        <span class="tag">SAP WM</span>
+        <span class="tag">SAP LE</span>
+        <span class="tag">SAP MM</span>
+        <span class="tag">S/4HANA SD</span>
+        <span class="tag">SAP SCM</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🔄</div>
+      <div class="skill-category">Data Integration</div>
+      <div class="skill-tags">
+        <span class="tag">IDocs</span>
+        <span class="tag">EDI</span>
+        <span class="tag">Inbound Pipelines</span>
+        <span class="tag">Outbound Pipelines</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🔍</div>
+      <div class="skill-category">Support &amp; Testing</div>
+      <div class="skill-tags">
+        <span class="tag">Smoke Testing</span>
+        <span class="tag">Test Case Scripting</span>
+        <span class="tag">P1–P4 Tickets</span>
+        <span class="tag">RCA</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">⚡</div>
+      <div class="skill-category">Methodologies</div>
+      <div class="skill-tags">
+        <span class="tag">SLA/OLA Frameworks</span>
+        <span class="tag">Job Scheduling</span>
+        <span class="tag">Process Automation</span>
+        <span class="tag">Batch Processing</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">☁️</div>
+      <div class="skill-category">Cloud &amp; Platforms</div>
+      <div class="skill-tags">
+        <span class="tag">S/4HANA Cloud</span>
+        <span class="tag">Azure AI</span>
+        <span class="tag">Private Cloud</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🎯</div>
+      <div class="skill-category">Core Focus Areas</div>
+      <div class="skill-tags">
+        <span class="tag">Supply Chain</span>
+        <span class="tag">Logistics Execution</span>
+        <span class="tag">Cross-Functional Integration</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-head reveal">
+    <div class="section-label">Career</div>
+    <h2 class="section-title">Professional Experience</h2>
+    <p class="section-sub">Delivering enterprise-grade SAP solutions in high-impact corporate environments.</p>
+  </div>
+  <div class="exp-timeline">
+    <div class="exp-item reveal">
+      <div class="exp-dot"></div>
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-company">Accenture India</div>
+          <div class="exp-date">Oct 2024 – Present</div>
+        </div>
+        <div class="exp-role">Associate Software Engineer / Application Developer</div>
+        <div class="exp-location">📍 Pune / Hyderabad, India</div>
+        <ul class="exp-bullets">
+          <li><strong>Logistics Execution:</strong> Analyzed specialized stock movements and translated business requirements into reliable Sales and Distribution (SD) logistical flow records.</li>
+          <li><strong>Order Lifecycle Operations:</strong> Supervised end-to-end Purchase Order (PO) transactions, coordinating outbound and inbound deliveries to secure zero-lag material logistics.</li>
+          <li><strong>Integration Architecture:</strong> Maintained and troubleshot IDocs to safeguard real-time data flow accuracy across connected business platforms.</li>
+          <li><strong>Defect Remediation:</strong> Resolved software defects and built structured upgrades for shipment creation logic, preventing missed operational cut-offs.</li>
+          <li><strong>SLA &amp; Incident Management:</strong> Monitored P1–P4 tickets and collaborated with multi-disciplinary teams to troubleshoot system outages under tight SLAs.</li>
+          <li><strong>Root Cause Documentation:</strong> Generated precise RCAs and remediation write-ups to reinforce internal repositories against recurring errors.</li>
+          <li><strong>Validation &amp; Deployment:</strong> Performed smoke testing on production updates and contributed test case scripts to expedite automation frameworks.</li>
+          <li><strong>Process Automation:</strong> Supervised automated batch processing schedules to ensure continuous execution and eliminate manual steps.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-head reveal">
+    <div class="section-label">Credentials</div>
+    <h2 class="section-title">Certifications</h2>
+    <p class="section-sub">Industry-recognized certifications validating my technical expertise.</p>
+  </div>
+  <div class="certs-grid">
+    <div class="cert-card reveal">
+      <div class="cert-badge">🏅</div>
+      <div>
+        <div class="cert-name">SAP Certified Associate — SAP S/4HANA Cloud Private Edition, Sales</div>
+        <div class="cert-issuer">SAP</div>
+      </div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-badge">☁️</div>
+      <div>
+        <div class="cert-name">Microsoft Certified: Azure AI Fundamentals (AI-900)</div>
+        <div class="cert-issuer">Microsoft</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-head reveal">
+    <div class="section-label">Academic Background</div>
+    <h2 class="section-title">Education</h2>
+  </div>
+  <div class="edu-grid">
+    <div class="edu-card reveal">
+      <div class="edu-degree">B.Tech — Computer Science</div>
+      <div class="edu-school">G. Pullaiah College of Engineering &amp; Technology</div>
+      <div class="edu-date">December 2021 – October 2024</div>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-degree">Diploma — Information Technology</div>
+      <div class="edu-school">Dayalbagh Educational Institute</div>
+      <div class="edu-date">February 2019 – June 2021</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner reveal">
+    <div class="section-label">Let's Connect</div>
+    <h2 class="section-title">Get In Touch</h2>
+    <p class="section-sub" style="margin: 0 auto;">Open to new opportunities, collaborations, or just a chat about SAP and enterprise systems.</p>
+    <a href="mailto:pramodsai9494@gmail.com" class="contact-email">pramodsai9494@gmail.com</a>
+    <div class="contact-links">
+      <a href="https://linkedin.com/in/pramodkumar-544a5b217" target="_blank" class="contact-link">LinkedIn</a>
+      <a href="tel:+916304208873" class="contact-link">+91 6304208873</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Designed &amp; Built by Pramod Kumar Thiruveedhi &nbsp;·&nbsp; SAP Functional Consultant</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Nav active link highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 120) current = sec.getAttribute('id');
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--teal)' : '';
+    });
+  });
+</script>
+</body>
+</html>
