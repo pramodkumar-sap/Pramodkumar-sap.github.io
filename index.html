@@ -1,631 +1,567 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pramod Kumar | SAP Consultant</title>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pramod Kumar Thiruveedhi — SAP Functional Consultant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F1F3EC;
+    --bg-grid: rgba(20,33,61,0.055);
+    --surface: #FBFCF9;
+    --ink: #142138;
+    --ink-soft: #566178;
+    --line: #CDD2C2;
+    --amber: #C1852B;
+    --amber-soft: #E9D2AC;
+    --teal: #35665E;
+    --teal-soft: #D9E6E2;
+    --max: 760px;
+  }
 
-    :root {
-      --navy: #0b1a2e;
-      --navy2: #112240;
-      --teal: #00d4c8;
-      --teal2: #00b5a8;
-      --white: #e8f0f7;
-      --muted: #7a90a8;
-      --card: #142035;
-      --border: rgba(0,212,200,0.15);
-    }
+  *{ box-sizing: border-box; }
 
-    html { scroll-behavior: smooth; }
+  html{ scroll-behavior: smooth; }
 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--navy);
-      color: var(--white);
-      overflow-x: hidden;
-    }
+  body{
+    margin:0;
+    background:
+      linear-gradient(var(--bg-grid) 1px, transparent 1px) 0 0/100% 32px,
+      linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px) 0 0/32px 100%,
+      var(--bg);
+    color: var(--ink);
+    font-family: "Newsreader", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
 
-    /* ── NOISE OVERLAY ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.4;
-    }
+  h1, h2, h3, .display{
+    font-family: "Space Grotesk", "Segoe UI", sans-serif;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin: 0;
+  }
 
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; width: 100%; z-index: 100;
-      padding: 18px 60px;
-      display: flex; justify-content: space-between; align-items: center;
-      background: rgba(11,26,46,0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800; font-size: 1.3rem;
-      color: var(--teal); letter-spacing: -0.5px;
-    }
-    .nav-links { display: flex; gap: 36px; list-style: none; }
-    .nav-links a {
-      font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--muted);
-      text-decoration: none; transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--teal); }
+  .mono{
+    font-family: "JetBrains Mono", "Courier New", monospace;
+  }
 
-    /* ── HERO ── */
-    #hero {
-      min-height: 100vh;
-      display: flex; align-items: center;
-      padding: 120px 60px 80px;
-      position: relative;
-    }
-    .hero-glow {
-      position: absolute; top: 10%; right: 5%;
-      width: 500px; height: 500px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(0,212,200,0.12) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .hero-content { max-width: 750px; position: relative; z-index: 1; }
-    .hero-badge {
-      display: inline-block;
-      background: rgba(0,212,200,0.1);
-      border: 1px solid var(--border);
-      color: var(--teal); font-size: 0.78rem;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      padding: 6px 16px; border-radius: 100px;
-      margin-bottom: 28px;
-      animation: fadeUp 0.6s ease both;
-    }
-    .hero-name {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(3rem, 7vw, 5.5rem);
-      font-weight: 800; line-height: 1.0;
-      letter-spacing: -2px;
-      animation: fadeUp 0.7s ease 0.1s both;
-    }
-    .hero-name span { color: var(--teal); }
-    .hero-role {
-      font-size: 1.15rem; font-weight: 300;
-      color: var(--muted); margin: 20px 0 32px;
-      line-height: 1.6;
-      animation: fadeUp 0.7s ease 0.2s both;
-    }
-    .hero-role strong { color: var(--white); font-weight: 500; }
-    .hero-cta {
-      display: flex; gap: 16px; flex-wrap: wrap;
-      animation: fadeUp 0.7s ease 0.3s both;
-    }
-    .btn-primary {
-      background: var(--teal); color: var(--navy);
-      font-family: 'Syne', sans-serif; font-weight: 700;
-      font-size: 0.85rem; letter-spacing: 0.05em;
-      padding: 14px 32px; border-radius: 6px;
-      text-decoration: none; border: none; cursor: pointer;
-      transition: all 0.2s; display: inline-block;
-    }
-    .btn-primary:hover { background: var(--teal2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,212,200,0.25); }
-    .btn-outline {
-      background: transparent; color: var(--teal);
-      font-family: 'Syne', sans-serif; font-weight: 600;
-      font-size: 0.85rem; letter-spacing: 0.05em;
-      padding: 14px 32px; border-radius: 6px;
-      border: 1px solid var(--teal);
-      text-decoration: none; cursor: pointer;
-      transition: all 0.2s; display: inline-block;
-    }
-    .btn-outline:hover { background: rgba(0,212,200,0.08); transform: translateY(-2px); }
+  a{ color: inherit; }
 
-    .hero-stats {
-      display: flex; gap: 48px; margin-top: 60px;
-      padding-top: 40px; border-top: 1px solid var(--border);
-      animation: fadeUp 0.7s ease 0.4s both;
-    }
-    .stat-num {
-      font-family: 'Syne', sans-serif;
-      font-size: 2.2rem; font-weight: 800; color: var(--teal);
-    }
-    .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 2px; letter-spacing: 0.05em; }
+  ::selection{ background: var(--amber-soft); }
 
-    /* ── SECTIONS ── */
-    section { padding: 100px 60px; position: relative; z-index: 1; }
-    .section-label {
-      font-size: 0.75rem; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--teal);
-      margin-bottom: 12px; font-weight: 500;
-    }
-    .section-title {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-      font-weight: 800; letter-spacing: -1px;
-      margin-bottom: 16px;
-    }
-    .section-sub {
-      color: var(--muted); font-size: 1rem;
-      font-weight: 300; max-width: 500px; line-height: 1.6;
-    }
-    .section-head { margin-bottom: 60px; }
+  /* ---------- Layout shells ---------- */
+  .wrap{
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 28px;
+  }
 
-    /* ── ABOUT ── */
-    #about { background: var(--navy2); }
-    .about-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
-    }
-    .about-text p {
-      color: var(--muted); line-height: 1.8; font-size: 0.97rem;
-      margin-bottom: 18px; font-weight: 300;
-    }
-    .about-text p strong { color: var(--white); font-weight: 500; }
-    .about-info { display: flex; flex-direction: column; gap: 16px; margin-top: 32px; }
-    .info-row { display: flex; gap: 16px; align-items: center; }
-    .info-icon { color: var(--teal); font-size: 1rem; width: 20px; }
-    .info-text { font-size: 0.9rem; color: var(--muted); }
-    .info-text strong { color: var(--white); font-weight: 500; }
+  /* ---------- Hero ---------- */
+  header.hero{
+    padding: 88px 0 56px;
+    border-bottom: 1px solid var(--line);
+  }
 
-    .about-cards { display: flex; flex-direction: column; gap: 16px; }
-    .about-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 12px; padding: 24px 28px;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-    .about-card:hover { border-color: var(--teal); transform: translateX(6px); }
-    .about-card-title {
-      font-family: 'Syne', sans-serif; font-weight: 700;
-      font-size: 0.95rem; color: var(--white); margin-bottom: 6px;
-    }
-    .about-card-text { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+  .eyebrow{
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--amber);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+  .eyebrow::before{
+    content: '';
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--teal);
+    box-shadow: 0 0 0 3px var(--teal-soft);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
 
-    /* ── SKILLS ── */
-    #skills {}
-    .skills-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;
-    }
-    .skill-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 12px; padding: 28px;
-      transition: all 0.25s;
-    }
-    .skill-card:hover { border-color: var(--teal); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
-    .skill-icon { font-size: 1.8rem; margin-bottom: 14px; }
-    .skill-category {
-      font-family: 'Syne', sans-serif; font-weight: 700;
-      font-size: 1rem; color: var(--white); margin-bottom: 12px;
-    }
-    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-    .tag {
-      background: rgba(0,212,200,0.08); border: 1px solid rgba(0,212,200,0.2);
-      color: var(--teal); font-size: 0.75rem; padding: 4px 12px;
-      border-radius: 100px; font-weight: 500; letter-spacing: 0.03em;
-    }
+  h1.name{
+    font-size: clamp(38px, 6vw, 58px);
+    font-weight: 700;
+    line-height: 1.04;
+  }
 
-    /* ── EXPERIENCE ── */
-    #experience { background: var(--navy2); }
-    .exp-timeline { position: relative; padding-left: 32px; }
-    .exp-timeline::before {
-      content: ''; position: absolute; left: 0; top: 8px; bottom: 0;
-      width: 2px; background: linear-gradient(to bottom, var(--teal), transparent);
-    }
-    .exp-item { position: relative; margin-bottom: 48px; }
-    .exp-dot {
-      position: absolute; left: -38px; top: 6px;
-      width: 12px; height: 12px; border-radius: 50%;
-      background: var(--teal); border: 2px solid var(--navy2);
-      box-shadow: 0 0 12px rgba(0,212,200,0.5);
-    }
-    .exp-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 12px; padding: 32px;
-      transition: border-color 0.2s;
-    }
-    .exp-card:hover { border-color: var(--teal); }
-    .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; flex-wrap: wrap; gap: 8px; }
-    .exp-company {
-      font-family: 'Syne', sans-serif; font-weight: 800;
-      font-size: 1.2rem; color: var(--teal);
-    }
-    .exp-date {
-      font-size: 0.8rem; color: var(--muted);
-      background: rgba(0,212,200,0.08); border: 1px solid var(--border);
-      padding: 4px 14px; border-radius: 100px;
-    }
-    .exp-role {
-      font-size: 1rem; font-weight: 500; color: var(--white);
-      margin-bottom: 4px;
-    }
-    .exp-location { font-size: 0.85rem; color: var(--muted); margin-bottom: 20px; }
-    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .exp-bullets li {
-      font-size: 0.88rem; color: var(--muted); line-height: 1.6;
-      padding-left: 18px; position: relative; font-weight: 300;
-    }
-    .exp-bullets li::before {
-      content: '▹'; position: absolute; left: 0;
-      color: var(--teal); font-size: 0.8rem;
-    }
-    .exp-bullets li strong { color: var(--white); font-weight: 500; }
+  .role-line{
+    margin-top: 14px;
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 500;
+    font-size: clamp(16px, 2.4vw, 19px);
+    color: var(--ink-soft);
+  }
 
-    /* ── CERTIFICATIONS ── */
-    .certs-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;
-    }
-    .cert-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 12px; padding: 28px 32px;
-      display: flex; gap: 20px; align-items: flex-start;
-      transition: all 0.25s;
-    }
-    .cert-card:hover { border-color: var(--teal); transform: translateY(-4px); }
-    .cert-badge {
-      width: 48px; height: 48px; border-radius: 10px;
-      background: rgba(0,212,200,0.1); border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.5rem; flex-shrink: 0;
-    }
-    .cert-name {
-      font-family: 'Syne', sans-serif; font-weight: 700;
-      font-size: 0.95rem; color: var(--white); margin-bottom: 6px; line-height: 1.4;
-    }
-    .cert-issuer { font-size: 0.82rem; color: var(--teal); font-weight: 500; }
+  .thesis{
+    margin-top: 22px;
+    max-width: 54ch;
+    font-size: 19px;
+    color: var(--ink);
+  }
+  .thesis em{
+    font-style: italic;
+    color: var(--amber);
+  }
 
-    /* ── EDUCATION ── */
-    #education { background: var(--navy2); }
-    .edu-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;
-    }
-    .edu-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 12px; padding: 32px;
-      transition: all 0.25s;
-    }
-    .edu-card:hover { border-color: var(--teal); transform: translateY(-4px); }
-    .edu-degree {
-      font-family: 'Syne', sans-serif; font-weight: 800;
-      font-size: 1.1rem; color: var(--white); margin-bottom: 8px;
-    }
-    .edu-school { font-size: 0.9rem; color: var(--teal); font-weight: 500; margin-bottom: 6px; }
-    .edu-date { font-size: 0.82rem; color: var(--muted); }
+  .chips{
+    margin-top: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .chip{
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12.5px;
+    padding: 9px 14px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--surface);
+    text-decoration: none;
+    color: var(--ink);
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  .chip:hover{
+    border-color: var(--amber);
+    transform: translateY(-1px);
+  }
 
-    /* ── CONTACT ── */
-    #contact {
-      text-align: center;
-      background: linear-gradient(to bottom, var(--navy), var(--navy2));
-    }
-    .contact-inner { max-width: 600px; margin: 0 auto; }
-    .contact-email {
-      display: inline-block; margin-top: 32px;
-      font-family: 'Syne', sans-serif; font-size: 1.1rem;
-      color: var(--teal); font-weight: 700;
-      text-decoration: none; border-bottom: 1px solid var(--teal);
-      padding-bottom: 2px; transition: opacity 0.2s;
-    }
-    .contact-email:hover { opacity: 0.7; }
-    .contact-links { display: flex; justify-content: center; gap: 24px; margin-top: 40px; }
-    .contact-link {
-      background: var(--card); border: 1px solid var(--border);
-      color: var(--muted); font-size: 0.85rem; font-weight: 500;
-      padding: 12px 28px; border-radius: 8px;
-      text-decoration: none; transition: all 0.2s;
-      letter-spacing: 0.05em;
-    }
-    .contact-link:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-2px); }
+  /* ---------- Pipeline ---------- */
+  .pipeline{
+    position: relative;
+    padding: 8px 0 20px;
+  }
+  .pipeline::before{
+    content: '';
+    position: absolute;
+    top: 10px; bottom: 40px;
+    left: 24px;
+    width: 2px;
+    background: repeating-linear-gradient(
+      to bottom,
+      var(--line) 0, var(--line) 6px, transparent 6px, transparent 12px
+    );
+  }
 
-    /* ── FOOTER ── */
-    footer {
-      text-align: center; padding: 28px 60px;
-      border-top: 1px solid var(--border);
-      font-size: 0.8rem; color: var(--muted);
-    }
+  .node{
+    position: relative;
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 8px 24px;
+    padding: 46px 0;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .node.in-view{ opacity: 1; transform: translateY(0); }
 
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .reveal {
-      opacity: 0; transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+  .node .dot{
+    position: absolute;
+    left: 24px; top: 50px;
+    transform: translate(-50%, -50%);
+    width: 15px; height: 15px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2.5px solid var(--amber);
+    z-index: 2;
+  }
+  .node .dot.active{
+    border-color: var(--teal);
+    background: var(--teal);
+    box-shadow: 0 0 0 5px var(--teal-soft);
+    animation: pulse-dot 2.4s ease-in-out infinite;
+  }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
-      nav { padding: 16px 24px; }
-      .nav-links { display: none; }
-      #hero, section { padding: 80px 24px; }
-      .about-grid { grid-template-columns: 1fr; gap: 40px; }
-      .hero-stats { gap: 28px; }
-    }
-  </style>
+  .node .tag{
+    grid-column: 2;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--amber);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .node .tag .status{
+    color: var(--teal);
+    font-weight: 600;
+  }
+
+  .node h2{
+    grid-column: 2;
+    font-size: 25px;
+    font-weight: 600;
+    margin-top: 4px;
+  }
+
+  .node .content{
+    grid-column: 2;
+    margin-top: 14px;
+  }
+
+  .node p{ margin: 0 0 12px; color: var(--ink); }
+  .node p:last-child{ margin-bottom: 0; }
+
+  /* ---------- Focus tags ---------- */
+  .focus-grid{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .focus-tag{
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 500;
+    font-size: 14.5px;
+    padding: 10px 16px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--amber);
+    border-radius: 2px;
+  }
+
+  /* ---------- Skills ---------- */
+  .skill-row{
+    display: grid;
+    grid-template-columns: 168px 1fr;
+    gap: 4px 20px;
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+    font-size: 15.5px;
+  }
+  .skill-row:last-child{ border-bottom: 1px solid var(--line); }
+  .skill-row .label{
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    padding-top: 2px;
+  }
+
+  /* ---------- Experience log ---------- */
+  .job-head{
+    margin-bottom: 6px;
+  }
+  .job-title{
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 600;
+    font-size: 16.5px;
+  }
+  .job-meta{
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    margin-top: 3px;
+  }
+
+  .log{
+    margin-top: 20px;
+    border-top: 1px solid var(--line);
+  }
+  .log-entry{
+    display: grid;
+    grid-template-columns: 62px 1fr;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 15px;
+  }
+  .log-entry .code{
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11.5px;
+    color: var(--amber);
+    padding-top: 3px;
+  }
+  .log-entry strong{
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+  }
+
+  /* ---------- Certifications ---------- */
+  .badges{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .badge{
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+  }
+  .badge .mark{
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: var(--teal);
+    background: var(--teal-soft);
+    padding: 3px 7px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .badge .name{ font-size: 15.5px; }
+
+  /* ---------- Education ---------- */
+  .edu-item{
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+  }
+  .edu-item:last-child{ border-bottom: 1px solid var(--line); }
+  .edu-item .degree{
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+  }
+  .edu-item .school{
+    color: var(--ink-soft);
+    font-size: 14.5px;
+    margin-top: 2px;
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    border-top: 1px solid var(--line);
+    padding: 56px 0 64px;
+  }
+  footer .call{
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 600;
+    font-size: clamp(24px, 4vw, 32px);
+    max-width: 18ch;
+  }
+  footer .call em{ color: var(--amber); font-style: italic; }
+  footer .contact-row{
+    margin-top: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13.5px;
+  }
+  footer .contact-row a{ text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 2px; }
+  footer .contact-row a:hover{ border-color: var(--amber); color: var(--amber); }
+  footer .foot-note{
+    margin-top: 40px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    letter-spacing: 0.03em;
+  }
+
+  @keyframes pulse{
+    0%, 100%{ box-shadow: 0 0 0 3px var(--teal-soft); }
+    50%{ box-shadow: 0 0 0 6px var(--teal-soft); }
+  }
+  @keyframes pulse-dot{
+    0%, 100%{ box-shadow: 0 0 0 5px var(--teal-soft); }
+    50%{ box-shadow: 0 0 0 9px var(--teal-soft); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+    .node{ opacity: 1; transform: none; }
+  }
+
+  @media (max-width: 560px){
+    .wrap{ padding: 0 18px; }
+    header.hero{ padding: 64px 0 40px; }
+    .node{ grid-template-columns: 32px 1fr; gap: 6px 14px; padding: 36px 0; }
+    .pipeline::before{ left: 16px; }
+    .node .dot{ left: 16px; top: 40px; width: 12px; height: 12px; }
+    .skill-row{ grid-template-columns: 1fr; gap: 4px; }
+    .log-entry{ grid-template-columns: 48px 1fr; gap: 10px; }
+  }
+
+  a:focus-visible, .chip:focus-visible{
+    outline: 2px solid var(--teal);
+    outline-offset: 2px;
+  }
+</style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">PK.</div>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#certifications">Certifications</a></li>
-    <li><a href="#education">Education</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-glow"></div>
-  <div class="hero-content">
-    <div class="hero-badge">Available for Opportunities</div>
-    <h1 class="hero-name">Pramod<br/><span>Kumar</span><br/>Thiruveedhi</h1>
-    <p class="hero-role">
-      <strong>SAP Functional Consultant</strong> &amp; Application Developer<br/>
-      Specializing in Supply Chain Management, Logistics Execution &amp; S/4HANA
-    </p>
-    <div class="hero-cta">
-      <a href="#experience" class="btn-primary">View Experience</a>
-      <a href="#contact" class="btn-outline">Get In Touch</a>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">system online — accepting new work</div>
+    <h1 class="name">Pramod Kumar<br>Thiruveedhi</h1>
+    <p class="role-line">SAP Functional Consultant &amp; Application Developer</p>
+    <p class="thesis">I keep goods moving and data honest between them — designing SAP logistics flows and troubleshooting the <em>IDoc pipelines</em> that connect purchase order to final delivery.</p>
+    <div class="chips">
+      <a class="chip" href="mailto:pramodsai9494@gmail.com">pramodsai9494@gmail.com</a>
+      <a class="chip" href="tel:+916304208873">+91 6304208873</a>
+      <span class="chip">Andhra Pradesh, India</span>
+      <a class="chip" href="#">LinkedIn ↗</a>
+      <a class="chip" href="#">Resume (PDF) ↗</a>
     </div>
-    <div class="hero-stats">
-      <div>
-        <div class="stat-num">1.8+</div>
-        <div class="stat-label">Years Experience</div>
-      </div>
-      <div>
-        <div class="stat-num">2</div>
-        <div class="stat-label">Certifications</div>
-      </div>
-      <div>
-        <div class="stat-num">4+</div>
-        <div class="stat-label">SAP Modules</div>
-      </div>
-    </div>
-  </div>
-</section>
+  </header>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="about-grid">
-    <div class="about-text reveal">
-      <div class="section-label">About Me</div>
-      <h2 class="section-title">Building Reliable SAP Ecosystems</h2>
-      <p>I'm a <strong>performance-driven SAP Functional Consultant</strong> based in Andhra Pradesh, India, with hands-on experience across SAP Supply Chain Management, Warehouse Management, Materials Management, and Logistics Execution.</p>
-      <p>At Accenture India, I work on optimizing cross-functional system logic, designing inbound/outbound execution plans, and monitoring complex <strong>IDoc data integration pipelines</strong>. I thrive on resolving business-critical bottlenecks and turning technical complexity into reliable operations.</p>
-      <div class="about-info">
-        <div class="info-row">
-          <span class="info-icon">📍</span>
-          <span class="info-text"><strong>Location:</strong> Andhra Pradesh, India</span>
-        </div>
-        <div class="info-row">
-          <span class="info-icon">🏢</span>
-          <span class="info-text"><strong>Current:</strong> Accenture India — Associate Software Engineer</span>
-        </div>
-        <div class="info-row">
-          <span class="info-icon">📧</span>
-          <span class="info-text"><strong>Email:</strong> pramodsai9494@gmail.com</span>
-        </div>
-        <div class="info-row">
-          <span class="info-icon">📞</span>
-          <span class="info-text"><strong>Phone:</strong> +91 6304208873</span>
+  <div class="pipeline">
+
+    <section class="node" id="profile">
+      <span class="dot"></span>
+      <span class="tag">node_01 · profile</span>
+      <h2>About</h2>
+      <div class="content">
+        <p>Performance-driven SAP Functional Consultant with 2 years of professional experience across SAP Supply Chain Management (SCM), Warehouse Management, Materials Management, and Logistics Execution.</p>
+        <p>Proficient in optimizing cross-functional system logic, designing inbound/outbound execution plans, and monitoring complex IDoc data integration pipelines — with a track record in incident governance, technical enhancements, and resolving business-critical bottlenecks within demanding corporate service architectures.</p>
+      </div>
+    </section>
+
+    <section class="node" id="focus">
+      <span class="dot"></span>
+      <span class="tag">node_02 · core focus</span>
+      <h2>Where I work</h2>
+      <div class="content">
+        <div class="focus-grid">
+          <span class="focus-tag">Supply Chain Management</span>
+          <span class="focus-tag">Logistics Execution &amp; Flows</span>
+          <span class="focus-tag">S/4HANA Private Cloud Sales</span>
+          <span class="focus-tag">Cross-Functional Integration</span>
         </div>
       </div>
-    </div>
-    <div class="about-cards reveal">
-      <div class="about-card">
-        <div class="about-card-title">⚙️ System Integration</div>
-        <div class="about-card-text">Expert in IDoc integration, EDI pipelines, and cross-system data flow management ensuring zero data loss in enterprise environments.</div>
-      </div>
-      <div class="about-card">
-        <div class="about-card-title">📦 Supply Chain Expertise</div>
-        <div class="about-card-text">Deep knowledge of end-to-end logistics flows, warehouse management, materials management, and order lifecycle operations.</div>
-      </div>
-      <div class="about-card">
-        <div class="about-card-title">🛠️ Incident Management</div>
-        <div class="about-card-text">Skilled in P1–P4 ticket governance, SLA/OLA adherence, root cause analysis, and systematic defect remediation under tight deadlines.</div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- SKILLS -->
-<section id="skills">
-  <div class="section-head reveal">
-    <div class="section-label">Expertise</div>
-    <h2 class="section-title">Technical Skills</h2>
-    <p class="section-sub">Core SAP modules and tools I work with daily in enterprise environments.</p>
-  </div>
-  <div class="skills-grid">
-    <div class="skill-card reveal">
-      <div class="skill-icon">🧩</div>
-      <div class="skill-category">SAP Modules</div>
-      <div class="skill-tags">
-        <span class="tag">SAP WM</span>
-        <span class="tag">SAP LE</span>
-        <span class="tag">SAP MM</span>
-        <span class="tag">S/4HANA SD</span>
-        <span class="tag">SAP SCM</span>
-      </div>
-    </div>
-    <div class="skill-card reveal">
-      <div class="skill-icon">🔄</div>
-      <div class="skill-category">Data Integration</div>
-      <div class="skill-tags">
-        <span class="tag">IDocs</span>
-        <span class="tag">EDI</span>
-        <span class="tag">Inbound Pipelines</span>
-        <span class="tag">Outbound Pipelines</span>
-      </div>
-    </div>
-    <div class="skill-card reveal">
-      <div class="skill-icon">🔍</div>
-      <div class="skill-category">Support &amp; Testing</div>
-      <div class="skill-tags">
-        <span class="tag">Smoke Testing</span>
-        <span class="tag">Test Case Scripting</span>
-        <span class="tag">P1–P4 Tickets</span>
-        <span class="tag">RCA</span>
-      </div>
-    </div>
-    <div class="skill-card reveal">
-      <div class="skill-icon">⚡</div>
-      <div class="skill-category">Methodologies</div>
-      <div class="skill-tags">
-        <span class="tag">SLA/OLA Frameworks</span>
-        <span class="tag">Job Scheduling</span>
-        <span class="tag">Process Automation</span>
-        <span class="tag">Batch Processing</span>
-      </div>
-    </div>
-    <div class="skill-card reveal">
-      <div class="skill-icon">☁️</div>
-      <div class="skill-category">Cloud &amp; Platforms</div>
-      <div class="skill-tags">
-        <span class="tag">S/4HANA Cloud</span>
-        <span class="tag">Azure AI</span>
-        <span class="tag">Private Cloud</span>
-      </div>
-    </div>
-    <div class="skill-card reveal">
-      <div class="skill-icon">🎯</div>
-      <div class="skill-category">Core Focus Areas</div>
-      <div class="skill-tags">
-        <span class="tag">Supply Chain</span>
-        <span class="tag">Logistics Execution</span>
-        <span class="tag">Cross-Functional Integration</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="section-head reveal">
-    <div class="section-label">Career</div>
-    <h2 class="section-title">Professional Experience</h2>
-    <p class="section-sub">Delivering enterprise-grade SAP solutions in high-impact corporate environments.</p>
-  </div>
-  <div class="exp-timeline">
-    <div class="exp-item reveal">
-      <div class="exp-dot"></div>
-      <div class="exp-card">
-        <div class="exp-header">
-          <div class="exp-company">Accenture India</div>
-          <div class="exp-date">Oct 2024 – Present</div>
+    <section class="node" id="skills">
+      <span class="dot"></span>
+      <span class="tag">node_03 · technical skills</span>
+      <h2>Stack</h2>
+      <div class="content">
+        <div class="skill-row">
+          <div class="label">SAP Modules</div>
+          <div>SAP WM, SAP LE, SAP MM, S/4HANA Sales &amp; Distribution (SD) Integration</div>
         </div>
-        <div class="exp-role">Associate Software Engineer / Application Developer</div>
-        <div class="exp-location">📍 Pune / Hyderabad, India</div>
-        <ul class="exp-bullets">
-          <li><strong>Logistics Execution:</strong> Analyzed specialized stock movements and translated business requirements into reliable Sales and Distribution (SD) logistical flow records.</li>
-          <li><strong>Order Lifecycle Operations:</strong> Supervised end-to-end Purchase Order (PO) transactions, coordinating outbound and inbound deliveries to secure zero-lag material logistics.</li>
-          <li><strong>Integration Architecture:</strong> Maintained and troubleshot IDocs to safeguard real-time data flow accuracy across connected business platforms.</li>
-          <li><strong>Defect Remediation:</strong> Resolved software defects and built structured upgrades for shipment creation logic, preventing missed operational cut-offs.</li>
-          <li><strong>SLA &amp; Incident Management:</strong> Monitored P1–P4 tickets and collaborated with multi-disciplinary teams to troubleshoot system outages under tight SLAs.</li>
-          <li><strong>Root Cause Documentation:</strong> Generated precise RCAs and remediation write-ups to reinforce internal repositories against recurring errors.</li>
-          <li><strong>Validation &amp; Deployment:</strong> Performed smoke testing on production updates and contributed test case scripts to expedite automation frameworks.</li>
-          <li><strong>Process Automation:</strong> Supervised automated batch processing schedules to ensure continuous execution and eliminate manual steps.</li>
-        </ul>
+        <div class="skill-row">
+          <div class="label">Data Integration</div>
+          <div>IDocs (Intermediate Documents), EDI, Inbound &amp; Outbound Data Interchange Pipelines</div>
+        </div>
+        <div class="skill-row">
+          <div class="label">Support</div>
+          <div>System Smoke Testing, Test Case Scripting &amp; Tooling, Ticket Lifecycles (P1–P4)</div>
+        </div>
+        <div class="skill-row">
+          <div class="label">Methodologies</div>
+          <div>SLA/OLA Frameworks, Root Cause Analysis (RCA), Enterprise Job Scheduling</div>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- CERTIFICATIONS -->
-<section id="certifications">
-  <div class="section-head reveal">
-    <div class="section-label">Credentials</div>
-    <h2 class="section-title">Certifications</h2>
-    <p class="section-sub">Industry-recognized certifications validating my technical expertise.</p>
-  </div>
-  <div class="certs-grid">
-    <div class="cert-card reveal">
-      <div class="cert-badge">🏅</div>
-      <div>
-        <div class="cert-name">SAP Certified Associate — SAP S/4HANA Cloud Private Edition, Sales</div>
-        <div class="cert-issuer">SAP</div>
+    <section class="node" id="experience">
+      <span class="dot active"></span>
+      <span class="tag">node_04 · experience <span class="status">● active</span></span>
+      <h2>Accenture India</h2>
+      <div class="content">
+        <div class="job-head">
+          <div class="job-title">Associate Software Engineer / Application Developer</div>
+          <div class="job-meta">OCT 2024 — PRESENT · 2 YRS · PUNE / HYDERABAD, INDIA</div>
+        </div>
+
+        <div class="log">
+          <div class="log-entry">
+            <div class="code">[SD]</div>
+            <div>Analyzed specialized stock movements and translated business requirements into reliable Sales and Distribution logistical flow records.</div>
+          </div>
+          <div class="log-entry">
+            <div class="code">[PO]</div>
+            <div><strong>Order Lifecycle:</strong> supervised end-to-end Purchase Order transactions, coordinating outbound and inbound deliveries to secure zero-lag material logistics.</div>
+          </div>
+          <div class="log-entry">
+            <div class="code">[IDOC]</div>
+            <div><strong>Integration Architecture:</strong> maintained and troubleshot Intermediate Documents to safeguard real-time data flow accuracy across connected business platforms.</div>
+          </div>
+          <div class="log-entry">
+            <div class="code">[FIX]</div>
+            <div><strong>Defect Remediation:</strong> resolved software defects and built structured upgrades for shipment creation logic, preventing missed operational cut-offs.</div>
+          </div>
+          <div class="log-entry">
+            <div class="code">[SLA]</div>
+            <div><strong>Incident Management:</strong> monitored tickets across P1–P4 clusters, collaborating with multi-disciplinary groups under tight corporate SLAs.</div>
+          </div>
+          <div class="log-entry">
+            <div class="code">[RCA]</div>
+            <div><strong>Root Cause Documentation:</strong> generated remediation write-ups and RCAs to reinforce internal repositories against recurring errors.</div>
+          </div>
+          <div class="log-entry">
+            <div class="code">[QA]</div>
+            <div><strong>Validation &amp; Deployment:</strong> performed smoke testing on production updates and contributed test case conditions to expedite automation frameworks.</div>
+          </div>
+          <div class="log-entry">
+            <div class="code">[BATCH]</div>
+            <div><strong>Process Automation:</strong> supervised automated background batch schedules to ensure continuous routine execution and eliminate manual steps.</div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="cert-card reveal">
-      <div class="cert-badge">☁️</div>
-      <div>
-        <div class="cert-name">Microsoft Certified: Azure AI Fundamentals (AI-900)</div>
-        <div class="cert-issuer">Microsoft</div>
+    </section>
+
+    <section class="node" id="certifications">
+      <span class="dot"></span>
+      <span class="tag">node_05 · certifications</span>
+      <h2>Credentials</h2>
+      <div class="content">
+        <div class="badges">
+          <div class="badge"><span class="mark">SAP</span><span class="name">SAP Certified Associate — SAP S/4HANA Cloud Private Edition, Sales</span></div>
+          <div class="badge"><span class="mark">MSFT</span><span class="name">Microsoft Certified: Azure AI Fundamentals (AI-900)</span></div>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- EDUCATION -->
-<section id="education">
-  <div class="section-head reveal">
-    <div class="section-label">Academic Background</div>
-    <h2 class="section-title">Education</h2>
-  </div>
-  <div class="edu-grid">
-    <div class="edu-card reveal">
-      <div class="edu-degree">B.Tech — Computer Science</div>
-      <div class="edu-school">G. Pullaiah College of Engineering &amp; Technology</div>
-      <div class="edu-date">December 2021 – October 2024</div>
-    </div>
-    <div class="edu-card reveal">
-      <div class="edu-degree">Diploma — Information Technology</div>
-      <div class="edu-school">Dayalbagh Educational Institute</div>
-      <div class="edu-date">February 2019 – June 2021</div>
-    </div>
-  </div>
-</section>
+    <section class="node" id="education">
+      <span class="dot"></span>
+      <span class="tag">node_06 · education</span>
+      <h2>Foundations</h2>
+      <div class="content">
+        <div class="edu-item">
+          <div class="degree">B.Tech, Computer Science</div>
+          <div class="school">G. Pullaiah College of Engineering &amp; Technology · Dec 2021 – Oct 2024</div>
+        </div>
+        <div class="edu-item">
+          <div class="degree">Diploma, Information Technology</div>
+          <div class="school">Dayalbagh Educational Institute · Feb 2019 – Jun 2021</div>
+        </div>
+      </div>
+    </section>
 
-<!-- CONTACT -->
-<section id="contact">
-  <div class="contact-inner reveal">
-    <div class="section-label">Let's Connect</div>
-    <h2 class="section-title">Get In Touch</h2>
-    <p class="section-sub" style="margin: 0 auto;">Open to new opportunities, collaborations, or just a chat about SAP and enterprise systems.</p>
-    <a href="mailto:pramodsai9494@gmail.com" class="contact-email">pramodsai9494@gmail.com</a>
-    <div class="contact-links">
-      <a href="https://linkedin.com/in/pramodkumar-544a5b217" target="_blank" class="contact-link">LinkedIn</a>
-      <a href="tel:+916304208873" class="contact-link">+91 6304208873</a>
-    </div>
   </div>
-</section>
+</div>
 
-<!-- FOOTER -->
 <footer>
-  <p>Designed &amp; Built by Pramod Kumar Thiruveedhi &nbsp;·&nbsp; SAP Functional Consultant</p>
+  <div class="wrap">
+    <div class="call">Have a logistics flow that needs <em>fixing</em>?</div>
+    <div class="contact-row">
+      <a href="mailto:pramodsai9494@gmail.com">pramodsai9494@gmail.com</a>
+      <a href="tel:+916304208873">+91 6304208873</a>
+      <a href="#">LinkedIn ↗</a>
+    </div>
+    <div class="foot-note">© 2026 PRAMOD KUMAR THIRUVEEDHI · ANDHRA PRADESH, INDIA</div>
+  </div>
 </footer>
 
 <script>
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  reveals.forEach(el => observer.observe(el));
-
-  // Nav active link highlight
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(sec => {
-      if (window.scrollY >= sec.offsetTop - 120) current = sec.getAttribute('id');
-    });
-    navLinks.forEach(a => {
-      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--teal)' : '';
-    });
-  });
+  const nodes = document.querySelectorAll('.node');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in-view');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    nodes.forEach(n => io.observe(n));
+  } else {
+    nodes.forEach(n => n.classList.add('in-view'));
+  }
 </script>
+
 </body>
 </html>
